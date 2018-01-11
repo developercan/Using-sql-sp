@@ -14,7 +14,7 @@ namespace SQLQuery_example
         SqlConnection conn = new SqlConnection();
         SqlCommand comm = new SqlCommand();
 
-#region Md5 Hash
+        #region Md5 Hash
         public static string CreateMD5(string input)
         {
             // Use input string to calculate MD5 hash
@@ -39,13 +39,13 @@ namespace SQLQuery_example
             conn.ConnectionString = @"Data Source=DESKTOP-V56QKFA\sqlexpress;Initial Catalog=query-example;Integrated Security=True";
             comm.Connection = conn;
             conn.Open();
+            comm.CommandType = CommandType.StoredProcedure;
         }
 
        public void Login(string username,string password)
         {
             password = CreateMD5(password);
             comm.CommandText = "sp_user_login";
-            comm.CommandType = CommandType.StoredProcedure;
             comm.Parameters.Add("@Username", SqlDbType.NVarChar).Value = username;
             comm.Parameters.Add("@pass", SqlDbType.NVarChar).Value = password;
             comm.Parameters.Add("@id", SqlDbType.Int);
@@ -57,11 +57,11 @@ namespace SQLQuery_example
                 string id = comm.Parameters["@id"].Value.ToString();
                 if (id != null && id != "")
                 {
-                    MessageBox.Show("Kullanıcı id: " + comm.Parameters["@id"].Value.ToString());
+                    MessageBox.Show("User id: " + id,"Idendtity Number",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Kullanıcı Bulunamadı");
+                    MessageBox.Show("User not found","Warning",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -75,18 +75,16 @@ namespace SQLQuery_example
             try
             {
                 comm.CommandText = "Add_user";
-                comm.CommandType = CommandType.StoredProcedure;
                 comm.Parameters.Add("@Name", SqlDbType.NVarChar).Value = Name;
                 comm.Parameters.Add("@Surname", SqlDbType.NVarChar).Value = Surname;
                 comm.Parameters.Add("@Username", SqlDbType.NVarChar).Value = Username;
                 comm.Parameters.Add("@Password", SqlDbType.NVarChar).Value = Password;
                 comm.ExecuteNonQuery();
-                MessageBox.Show("Kayıt işlemi başarılı","Başarılı",MessageBoxButtons.OKCancel,MessageBoxIcon.Information);
+                MessageBox.Show("Registration Successful", "Successful", MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             catch (Exception Ex)
             {
-                MessageBox.Show("Kayıt yapılırken hata oluştu:"+Ex.Message,"Hata!",MessageBoxButtons.OKCancel,MessageBoxIcon.Error);
-
+                MessageBox.Show("An error occurred while recording:" + Ex.Message,"Error!",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
     }

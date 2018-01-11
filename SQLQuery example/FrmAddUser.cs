@@ -19,13 +19,13 @@ namespace SQLQuery_example
 
         private void LblInf_MouseMove(object sender, MouseEventArgs e)
         {
-            toolTip1.SetToolTip(LblInf, "Şifreler eşleşmemektedir");
+            toolTip1.SetToolTip(LblInf, "Passwords do not match. Please retype!");
         }
 
         private void FrmAddUser_Load(object sender, EventArgs e)
         {
-            LblInf.Visible = false;
             TxtName.Focus();
+            LblInf.Visible = false;
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)

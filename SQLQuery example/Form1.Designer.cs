@@ -42,13 +42,16 @@
             this.TxtUsername.Name = "TxtUsername";
             this.TxtUsername.Size = new System.Drawing.Size(143, 20);
             this.TxtUsername.TabIndex = 1;
+            this.TxtUsername.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtUsername_KeyDown);
             // 
             // TxtPassword
             // 
             this.TxtPassword.Location = new System.Drawing.Point(83, 75);
             this.TxtPassword.Name = "TxtPassword";
+            this.TxtPassword.PasswordChar = '*';
             this.TxtPassword.Size = new System.Drawing.Size(143, 20);
             this.TxtPassword.TabIndex = 2;
+            this.TxtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPassword_KeyDown);
             // 
             // label1
             // 
@@ -102,6 +105,7 @@
             this.Controls.Add(this.TxtUsername);
             this.Name = "FrmLogin";
             this.Text = "Login";
+            this.Load += new System.EventHandler(this.FrmLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
